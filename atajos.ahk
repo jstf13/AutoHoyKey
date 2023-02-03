@@ -7,7 +7,10 @@ Return
 ^+g:: Run, https://www.google.com/
 Return
 
-^+x:: Run, https://www.bible.com/es/
+^+x:: Run, https://discord.gg/6KwynRsSuy
+Return
+
+^+j:: Run, https://pyxisjira.atlassian.net/plugins/servlet/ac/io.tempo.jira/tempo-app#!/my-work/week?type=TIME
 Return
 
 <!^+t:: Run, https://translate.google.com/
@@ -69,8 +72,23 @@ Return
 <!1:: Send, {Volume_Down}
 Return
 
-
-<!2:: Send, {Media_Play_Pause}
+!2::  ; tecla Alt izquierdo + 2
+IfWinExist, ahk_class MozillaWindowClass
+{
+    WinGetTitle, Title, ahk_class MozillaWindowClass
+    If Title contains YouTube
+    {
+        Send {Space}
+    }
+    Else
+    {
+        Send {Media_Play_Pause}
+    }
+}
+Else
+{
+    Send {Media_Play_Pause}
+}
 Return
 
 <!4:: Send, {Media_Next}
@@ -87,32 +105,33 @@ Return
 Return
 
 
+!+d::
+FileCreateDir, C:\Users\juans\OneDrive\Escritorio\LastDownload
+FileSelectFile, file, , , Select file to copy and extract, *.zip
+FileCopy, %file%, C:\Users\juans\OneDrive\Escritorio\LastDownload%A_LoopFileName%
+Run, E:\Archivos del programa\7-Zip\7z.exe x "C:\Users\juans\OneDrive\Escritorio\LastDownload%A_LoopFileName%" -o"C:\Users\juans\OneDrive\Escritorio\LastDownload",, Hide
+Run, explorer.exe "C:\Users\juans\OneDrive\Escritorio\LastDownload"
+Return
+
 ~[::
-Input, UserInput, V T5 L4 C, {enter}.{esc}{tab}, bt,jhot,jgm
-if (ErrorLevel = "Max")
-{
-    MsgBox, You entered "%UserInput%", which is the maximum length of text.
-    return
-}
-if (ErrorLevel = "Timeout")
-{
-    MsgBox, You entered "%UserInput%" at which time the input timed out.
-    return
-}
-if (ErrorLevel = "NewInput")
-    return
-If InStr(ErrorLevel, "EndKey:")
-{
-    MsgBox, You entered "%UserInput%" and terminated the input with %ErrorLevel%.
-    return
-}
+Input, UserInput, V T5 L4 C, {enter}.{esc}{tab}, bt,jhot,jgm,jpyx
 ; Otherwise, a match was found.
 if (UserInput = "bt")
     Send, {backspace 3}Buenas tardes, 
+else if (UserInput = "jpyx")
+    Send, {backspace 5}juan.toledo@pyxis.com.uy
 else if (UserInput = "jhot")
     Send, {backspace 5}juansebastiantoledofreire@hotmail.com
 else if (UserInput = "jgm")
     Send, {backspace 4}juansebastiantoledofreire@gmail.com
+else if (UserInput = "pass")
+    Send, {backspace 5}ATBBpHQrcEFwYv48UMxffVCSRJUq63DB2488
+else if (UserInput = "spam")
+    Send, {backspace 10}
+Loop, 0
+{
+    Send, Diego Madara Tate de Rocha {enter}
+}
 return
 
 <!s::Run nircmd.exe changebrightness +10
