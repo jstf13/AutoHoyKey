@@ -2,6 +2,12 @@
 Return
 
 ^+a:: Run, https://aulas.ort.edu.uy
+Sleep, 5000
+FileAppend,
+(
+document.getElementById("username").value = "Hola";
+), D:\documentos\AutoHotKey\AutoHoyKey\aulasForm.js
+Sleep, 2000
 Return
 
 ^+g:: Run, https://www.google.com/
@@ -111,6 +117,18 @@ FileSelectFile, file, , , Select file to copy and extract, *.zip
 FileCopy, %file%, C:\Users\juans\OneDrive\Escritorio\LastDownload%A_LoopFileName%
 Run, E:\Archivos del programa\7-Zip\7z.exe x "C:\Users\juans\OneDrive\Escritorio\LastDownload%A_LoopFileName%" -o"C:\Users\juans\OneDrive\Escritorio\LastDownload",, Hide
 Run, explorer.exe "C:\Users\juans\OneDrive\Escritorio\LastDownload"
+Return
+
+!+b::
+Run, "C:\Users\juans\AppData\Local\WhatsApp\WhatsApp.exe",
+Run, "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+Return
+
+<!^+c::
+Clipboard = ""
+Send ^c
+ClipWait
+FileAppend, %Clipboard%, %A_Desktop%\Note.txt
 Return
 
 ~[::
