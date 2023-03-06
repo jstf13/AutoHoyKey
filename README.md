@@ -10,6 +10,7 @@
 ### If you want to execute the script automaticaly in the start of your pc
 
 - Add AutoHotKey in startups programs.
-- Add a shortcut of your script in the startup directory
+- Add a copy of your script in the startup directory
 	You can go there whith: 
 		WIN + R -> `shell:startup`
+NOTE: Make sure that is a copy, and put all the code in the same file, it will reduce your error probabilities
