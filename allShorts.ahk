@@ -177,6 +177,23 @@ FileAppend, %Clipboard%, %A_Desktop%\Note.txt, UTF-8
 MsgBox, El contenido del portapapeles es: %Clipboard%
 Return
 
+; Abre Git Bash en la carpeta actual
+^+b::
+Send, !d ; Activa la barra de direcciones del Explorador de Windows
+Send, ^c ; Copia la ruta de la carpeta actual al portapapeles
+Sleep, 100 ; Espera un momento para que se copie la ruta
+Run, "E:\Program Files\Git\git-bash.exe" --cd="%clipboard%"
+Sleep, 4500 ; Espera 4 segundos
+SendInput, {Raw}
+(
+  code .
+  
+  exit
+  
+)
+
+Return
+
 ; End of special shortcuts
 
 ; Code sender (It's just Raw Text) 
@@ -185,13 +202,38 @@ SendInput, {Raw}
 (
 git add .
 git commit -m "Test"
-git push origin 4_Refactorizaci{U+00F3}n-de-c{U+00F3}digo_BBVAI-546
+git push origin feature/BBVAI-600_implementacion_flujo_desarrollo
 
+)
+; SendInput, {U+00F3} caracter ó
+SendInput, {Raw}
+(
+)
+; SendInput, {U+00F3} caracter ó
+SendInput, {Raw}
+(
 )
 Return
 
-<!^+x::
-RunWait, cmd /c "git add ."
-RunWait, cmd /c "git commit -m `"`"Test`"`""
-RunWait, cmd /c "git push origin 4_Refactorización-de-código_BBVAI-546"
-return
+
+; Code sender (It's just Raw Text) 
+<!^+r::
+SendInput, {Raw}
+(
+dev2017
+
+)
+Sleep, 1000
+SendInput, {Raw}
+(
+sudo su
+
+)
+; espera 1 segundo
+Sleep, 1000
+SendInput, {Raw}
+(
+dev2017
+
+)
+Return
