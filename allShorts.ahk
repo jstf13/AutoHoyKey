@@ -160,10 +160,11 @@ Run, E:\Archivos del programa\7-Zip\7z.exe x "C:\Users\juans\OneDrive\Escritorio
 Run, explorer.exe "C:\Users\juans\OneDrive\Escritorio\LastDownload"
 Return
 
-!+b::
-Run, "C:\Users\juans\AppData\Local\WhatsApp\WhatsApp.exe",
-Run, "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
-Return
+; ; ; Abre Git Bash en la carpeta actual con las teclas Ctrl + Shift + B
+; !+b::
+; Run, "C:\Users\juans\AppData\Local\WhatsApp\WhatsApp.exe",
+; Run, "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+; Return
 
 <!^+c::
 SendInput, ^c
@@ -177,22 +178,68 @@ FileAppend, %Clipboard%, %A_Desktop%\Note.txt, UTF-8
 MsgBox, El contenido del portapapeles es: %Clipboard%
 Return
 
-; Abre Git Bash en la carpeta actual
+; ; Abre Git Bash en la carpeta actual
+; ^+b::
+; Send, !d ; Activa la barra de direcciones del Explorador de Windows
+; Send, ^c ; Copia la ruta de la carpeta actual al portapapeles
+; Sleep, 100 ; Espera un momento para que se copie la ruta
+; Run, "E:\Program Files\Git\git-bash.exe" --cd="%clipboard%"
+; Sleep, 3000 ; Espera 4 segundos
+; SendInput, {Raw}
+; (
+;   code .
+  
+;   exit
+  
+; )
+
+; Return
+
+; Abre Git Bash en la carpeta actual con las teclas Ctrl + Shift + B
 ^+b::
 Send, !d ; Activa la barra de direcciones del Explorador de Windows
 Send, ^c ; Copia la ruta de la carpeta actual al portapapeles
 Sleep, 100 ; Espera un momento para que se copie la ruta
 Run, "E:\Program Files\Git\git-bash.exe" --cd="%clipboard%"
-Sleep, 4500 ; Espera 4 segundos
-SendInput, {Raw}
-(
-  code .
-  
-  exit
-  
-)
 
-Return
+; Espera hasta que la ventana de Git Bash esté activa o 5 segundos
+WinWait, Git Bash,, 5
+
+; ; Verifica si la ventana de Git Bash está activa
+; IfWinActive, Git Bash
+; {
+;     ; Obtiene el ID de la ventana de Git Bash
+;     WinGet, PID, PID, Git Bash
+
+;     ; Espera un momento adicional si es necesario
+;     Sleep, 1000
+    
+;     ; Cambia a la ventana de Git Bash
+;     WinActivate, ahk_pid %PID%
+
+;     ; Espera hasta que la ventana esté activa o 5 segundos
+;     WinWaitActive, ahk_pid %PID%, , 5
+
+    ; Ejecuta tus comandos en el Git Bash
+    SendInput, {Raw}
+    (
+        code .
+        
+        exit
+        
+    )
+    Return
+; }
+; Else
+; {
+;     ; Si la ventana de Git Bash no está activa en 5 segundos, muestra un mensaje
+;     MsgBox, No se pudo detectar la ventana de Git Bash en el tiempo esperado.
+; }
+; Return
+
+
+
+
 
 ; End of special shortcuts
 
@@ -200,9 +247,37 @@ Return
 <!^+v::
 SendInput, {Raw}
 (
-git add .
-git commit -m "Test"
-git push origin feature/BBVAI-600_implementacion_flujo_desarrollo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web Simple</title>
+</head>
+<body>
+    <h1>Mi Página Web Simple</h1>
+    <p>Este es un ejemplo de una página web que utiliza una DLL en C#.</p>
+
+    <!-- Agrega un espacio para mostrar el mensaje de la DLL -->
+    <div id="message"></div>
+
+    <!-- Agrega un botón para cargar el mensaje desde la DLL -->
+    <button onclick="loadMessage()">Cargar Mensaje</button>
+
+    <script>
+        function loadMessage() {
+            // Utiliza JavaScript para cargar el mensaje desde la DLL
+            fetch('MyLibrary.dll/MyLibrary.Message/GetMessage')
+                .then(response => response.text())
+                .then(message => {
+                    document.getElementById('message').textContent = message;
+                });
+        }
+    </script>
+</body>
+</html>
+
+
 
 )
 ; SendInput, {U+00F3} caracter ó
